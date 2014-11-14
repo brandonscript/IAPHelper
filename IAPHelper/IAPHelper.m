@@ -18,7 +18,7 @@
 @interface IAPHelper()
 @property (nonatomic,copy) IAPProductsResponseBlock requestProductsBlock;
 @property (nonatomic,copy) IAPbuyProductCompleteResponseBlock buyProductCompleteBlock;
-@property (nonatomic,copy) resoreProductsCompleteResponseBlock restoreCompletedBlock;
+@property (nonatomic,copy) restoreProductsCompleteResponseBlock restoreCompletedBlock;
 @property (nonatomic,copy) checkReceiptCompleteResponseBlock checkReceiptCompleteBlock;
 
 @property (nonatomic,strong) NSMutableData* receiptRequestData;
@@ -196,7 +196,7 @@
     [[SKPaymentQueue defaultQueue] removeTransactionObserver:self];
 }
 
--(void)restoreProductsWithCompletion:(resoreProductsCompleteResponseBlock)completion {
+-(void)restoreProductsWithCompletion:(restoreProductsCompleteResponseBlock)completion {
 
     //clear it
     self.buyProductCompleteBlock = nil;
