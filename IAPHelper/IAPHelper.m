@@ -51,7 +51,10 @@
         }
         
         self.purchasedProducts = purchasedProducts;
-                        
+
+        [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
+
+        
     }
     return self;
 }
@@ -68,6 +71,10 @@
     }
 
     return productPurchased;
+}
+
+- (void)dealloc {
+    [[SKPaymentQueue defaultQueue] removeTransactionObserver:self];
 }
 
 - (void)requestProductsWithCompletion:(IAPProductsResponseBlock)completion {
@@ -185,15 +192,11 @@
 
 - (void)buyProduct:(SKProduct *)productIdentifier onCompletion:(IAPbuyProductCompleteResponseBlock)completion {
     
-    [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
-    
     self.buyProductCompleteBlock = completion;
     
     self.restoreCompletedBlock = nil;
     SKPayment *payment = [SKPayment paymentWithProduct:productIdentifier];
     [[SKPaymentQueue defaultQueue] addPayment:payment];
-    
-    [[SKPaymentQueue defaultQueue] removeTransactionObserver:self];
 }
 
 -(void)restoreProductsWithCompletion:(restoreProductsCompleteResponseBlock)completion {
